@@ -110,9 +110,17 @@ local function lockVehicle()
 end
 local function startVehicle()
 	local veh = getVehicleLookingAt()
+	print(veh)
+	if veh == 0 then
+		veh = GetVehiclePedIsIn(PlayerPedId(), false)
+	end
 	if veh and doIOwnVehicle(veh) then
 		requestNetworkControl(veh)
-		SetVehicleEngineOn(veh, true, true, true)
+		if GetIsVehicleEngineRunning(veh) then
+			SetVehicleEngineOn(veh, false, true, false)
+		else
+			SetVehicleEngineOn(veh, true, true, true)
+		end
 	end
 end
 
@@ -145,15 +153,21 @@ end)
 
 
 RegisterNUICallback('action', function(data,cb)
-	if data.action == 'unlock' then
+	if data.action == 'add' then
+		local veh = getVehicleLookingAt()
+		add_vehicle(veh)
+	elseif data.action == 'unlock' then
 		unLockVehicle()
 	elseif data.action == 'lock' then
 		lockVehicle()
 	elseif data.action == 'start' then
 		startVehicle()
+	elseif data.action == 'close' then
+		print("we closing")
+		TriggerEvent('FiveM-Remote-Key:toggle')
 	end
 	-- remove this line if you dont want the key to hide after clicking something
-	TriggerEvent('FiveM-Remote-Key:toggle')
+	-- TriggerEvent('FiveM-Remote-Key:toggle')
 end)
 
 
