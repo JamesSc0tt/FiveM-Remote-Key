@@ -13,3 +13,9 @@ ui_page 'nui/index.html'
 files {
     'nui/index.html'
 }
+
+exports {
+    'add_vehicle',
+    'remove_vehicle'
+}
+
