@@ -137,7 +137,7 @@ end)
 Citizen.CreateThread(function()
 	while true do
 		Citizen.Wait(0)	
-		if IsControlJustPressed(0,311) then
+		if IsControlJustPressed(0,311) then -- k
 			TriggerEvent('FiveM-Remote-Key:toggle')
 		end
 	end
@@ -152,6 +152,8 @@ RegisterNUICallback('action', function(data,cb)
 	elseif data.action == 'start' then
 		startVehicle()
 	end
+	-- remove this line if you dont want the key to hide after clicking something
+	TriggerEvent('FiveM-Remote-Key:toggle')
 end)
 
 
