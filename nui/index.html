@@ -1,6 +1,14 @@
 <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet" type="text/css" />
 <script>
+	document.onkeydown = function (key) {
+		if (key.which == 27 || key.which == 75) { // Escape key
+			$.post('https://FiveM-Remote-Key/action', JSON.stringify({
+				"action": "close"
+			}));
+			$('.key').hide();
+		}
+	};
 	$(function() {
     	window.addEventListener('message', function(event) {
     		if (event.data.display) {
@@ -10,21 +18,26 @@
     		}
 	    });
 	});
+	function addVeh() {
+		$.post('https://FiveM-Remote-Key/action', JSON.stringify({
+			"action": "add"
+		}));
+	}
 	function sendLock() {
-		$.post('http://FiveM-Remote-Key/action', JSON.stringify({
+		$.post('https://FiveM-Remote-Key/action', JSON.stringify({
 			"action": "lock"
-		});
+		}));
 	}
 
 	function sendUnLock() {
-		$.post('http://FiveM-Remote-Key/action', JSON.stringify({
+		$.post('https://FiveM-Remote-Key/action', JSON.stringify({
 			"action": "unlock"
-		});
+		}));
 	}
 	function sendStart() {
-		$.post('http://FiveM-Remote-Key/action', JSON.stringify({
+		$.post('https://FiveM-Remote-Key/action', JSON.stringify({
 			"action": "start"
-		});
+		}));
 	}
 </script>
 
@@ -77,6 +90,9 @@
 		KEY
 	</div>
 	<div class="buttons">
+		<div class="button" onclick="addVeh()">
+			ADD VEH
+		</div>
 		<div class="button" onclick="sendLock()">
 			LOCK
 		</div>
