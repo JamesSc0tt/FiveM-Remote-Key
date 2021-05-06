@@ -131,7 +131,7 @@ AddEventHandler('FiveM-Remote-Key:toggle', function()
 		SendNUIMessage({
 			display = false
 		})
-		SetNuiFocus(false)
+		SetNuiFocus(false, false)
 		keyOpen = false
 	else
 		SendNUIMessage({
@@ -142,13 +142,10 @@ AddEventHandler('FiveM-Remote-Key:toggle', function()
 	end
 end)
 
-Citizen.CreateThread(function()
-	while true do
-		Citizen.Wait(0)	
-		if IsControlJustPressed(0,311) then -- k
-			TriggerEvent('FiveM-Remote-Key:toggle')
-		end
-	end
+RegisterKeyMapping('togglekey', 'Toggle the car key', 'KEYBOARD', 'k')
+
+RegisterCommand('togglekey', function()
+	TriggerEvent('FiveM-Remote-Key:toggle')
 end)
 
 
